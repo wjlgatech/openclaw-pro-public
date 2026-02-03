@@ -1,0 +1,41 @@
+# Test Distiller Configuration (AI Refinery Compatible)
+
+base_config:
+  llm: ollama:phi4
+  temperature: 0.7
+  max_tokens: 2048
+  top_p: 1
+
+utility_agents:
+  - agent_name: search
+    agent_description: "Searches the web for information"
+    self_reflection:
+      enabled: true
+      max_attempts: 2
+
+  - agent_name: research
+    agent_description: "Performs deep research with document analysis"
+    self_reflection:
+      enabled: true
+      max_attempts: 3
+    llm: claude-3-haiku-20240307
+
+  - agent_name: custom_test
+    agent_description: "Custom test agent"
+    temperature: 0.5
+
+orchestrator:
+  intelligent_routing: true
+  task_decomposition: true
+  memory_contexts:
+    - date
+    - env_variable
+    - chat_history
+  routing_llm: ollama:phi4
+
+memory_config:
+  chat_history:
+    enabled: true
+    max_rounds: 10
+  variable_memory:
+    enabled: true
