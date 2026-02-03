@@ -70,7 +70,13 @@ fi
 
 # Copy documentation
 echo -e "${YELLOW}Copying documentation...${NC}"
-[ -f "README.md" ] && cp README.md "$TEMP_DIR/" || true
+# Use public-specific README if it exists, otherwise use regular README
+if [ -f "README-PUBLIC.md" ]; then
+    cp README-PUBLIC.md "$TEMP_DIR/README.md"
+    echo -e "${GREEN}✓ Using public-specific README${NC}"
+else
+    [ -f "README.md" ] && cp README.md "$TEMP_DIR/" || true
+fi
 [ -f "LICENSE" ] && cp LICENSE "$TEMP_DIR/" || true
 [ -f "CONTRIBUTING.md" ] && cp CONTRIBUTING.md "$TEMP_DIR/" || true
 [ -f "CODE_OF_CONDUCT.md" ] && cp CODE_OF_CONDUCT.md "$TEMP_DIR/" || true
