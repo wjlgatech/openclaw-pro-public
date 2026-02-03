@@ -34,7 +34,7 @@ fi
 if ! git remote | grep -q "^public$"; then
     echo -e "${YELLOW}Public remote not configured${NC}"
     echo -e "${YELLOW}Add it with:${NC}"
-    echo "  git remote add public https://github.com/YOUR_ORG/enterprise-openclaw.git"
+    echo "  git remote add public https://github.com/wjlgatech/enterprise-openclaw-public.git"
     exit 1
 fi
 

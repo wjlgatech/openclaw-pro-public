@@ -4,33 +4,31 @@
 
 ### 🚀 Quick Start (5 minutes)
 
-#### 1. Create Target Repositories on GitHub
+#### 1. Create Public Repository on GitHub
 
 ```bash
 # Go to https://github.com/new
 
 # Create PUBLIC repository:
-# - Name: enterprise-openclaw
+# - Name: enterprise-openclaw-public
 # - Visibility: Public
 # - Don't initialize with README
 
-# Create PRIVATE repository:
-# - Name: enterprise-openclaw-enterprise
-# - Visibility: Private
-# - Don't initialize with README
+# NOTE: Current repo (enterprise-openclaw) stays as PRIVATE
 ```
 
-#### 2. Add Git Remotes
+#### 2. Add Git Remote
 
 ```bash
 # Add public remote
-git remote add public https://github.com/YOUR_ORG/enterprise-openclaw.git
-
-# Add private remote
-git remote add private https://github.com/YOUR_ORG/enterprise-openclaw-enterprise.git
+git remote add public https://github.com/wjlgatech/enterprise-openclaw-public.git
 
 # Verify
 git remote -v
+
+# You should see:
+# origin  https://github.com/wjlgatech/enterprise-openclaw.git (private)
+# public  https://github.com/wjlgatech/enterprise-openclaw-public.git (public)
 ```
 
 #### 3. Test Manual Publishing
@@ -39,8 +37,8 @@ git remote -v
 # Publish core to public (manual test)
 ./scripts/publish-public.sh
 
-# Publish full to private (manual test)
-./scripts/publish-private.sh
+# Current repo is already private, no additional publish needed
+# But you can verify with: git push origin main
 ```
 
 #### 4. Setup GitHub Secrets (for automation)
@@ -100,15 +98,14 @@ gh release create v1.0.1 --title "Release v1.0.1"
 
 **Check public repo:**
 ```bash
-git clone https://github.com/YOUR_ORG/enterprise-openclaw.git /tmp/test-public
+git clone https://github.com/wjlgatech/enterprise-openclaw-public.git /tmp/test-public
 cd /tmp/test-public
 ls packages/  # Should see only "core"
 ```
 
-**Check private repo:**
+**Check private repo (current repo):**
 ```bash
-git clone https://github.com/YOUR_ORG/enterprise-openclaw-enterprise.git /tmp/test-private
-cd /tmp/test-private
+# Already have it locally, but to verify:
 ls packages/  # Should see "core" and "enterprise"
 ```
 

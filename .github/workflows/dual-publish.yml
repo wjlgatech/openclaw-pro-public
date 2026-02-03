@@ -1,4 +1,4 @@
-name: Dual Publish (Public + Private)
+name: Publish Core to Public Repo
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   publish-public:
-    name: Publish Core to Public Repo
+    name: Publish Core to Public Repo (enterprise-openclaw-public)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -86,12 +86,12 @@ jobs:
         working-directory: /tmp/public-release
         run: |
           # Configure git credentials
-          git remote add public https://x-access-token:${{ secrets.PUBLIC_REPO_TOKEN }}@github.com/${{ github.repository_owner }}/enterprise-openclaw.git
+          git remote add public https://x-access-token:${{ secrets.PUBLIC_REPO_TOKEN }}@github.com/${{ github.repository_owner }}/enterprise-openclaw-public.git
 
           # Force push to public repo
           git push -f public main
 
-      - name: Publish to npm (on release only)
+      - name: Publish core to npm (on release only)
         if: github.event_name == 'release'
         working-directory: /tmp/public-release
         run: |
@@ -101,39 +101,28 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-  publish-private:
-    name: Publish Full to Private Repo
+  publish-enterprise:
+    name: Publish Enterprise to GitHub Packages
     runs-on: ubuntu-latest
+    if: github.event_name == 'release'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
-      - name: Push to private repository
-        run: |
-          # Configure git credentials
-          git remote add private https://x-access-token:${{ secrets.PRIVATE_REPO_TOKEN }}@github.com/${{ github.repository_owner }}/enterprise-openclaw-enterprise.git
-
-          # Push current branch to main in private repo
-          git push -f private ${{ github.ref_name }}:main
-
-          # Push tags if any
-          git push private --tags || true
-
-      - name: Setup Node.js (on release only)
-        if: github.event_name == 'release'
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@enterprise-openclaw'
 
-      - name: Publish to GitHub Packages (on release only)
-        if: github.event_name == 'release'
-        run: |
-          npm install
-          npm run build
-          npm publish -w @enterprise-openclaw/enterprise
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build packages
+        run: npm run build
+
+      - name: Publish enterprise package to GitHub Packages
+        run: npm publish -w @enterprise-openclaw/enterprise
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

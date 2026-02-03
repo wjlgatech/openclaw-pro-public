@@ -10,17 +10,16 @@
 ### Single Source of Truth (Local)
 
 ```
-enterprise-openclaw/                    [Local Development]
+enterprise-openclaw/                    [Local Development - Private Repo]
 ├── packages/
 │   ├── core/                          # Will publish to: GitHub Public
-│   └── enterprise/                    # Will publish to: GitHub Private
+│   └── enterprise/                    # Stays in private repo
 ├── .git/
 │   └── remotes/
-│       ├── public                     # → github.com/YOUR_ORG/enterprise-openclaw (public)
-│       └── private                    # → github.com/YOUR_ORG/enterprise-openclaw-enterprise (private)
+│       ├── origin                     # → github.com/wjlgatech/enterprise-openclaw (private)
+│       └── public                     # → github.com/wjlgatech/enterprise-openclaw-public (public)
 └── scripts/
-    ├── publish-public.sh              # Auto-publish core to public
-    └── publish-private.sh             # Auto-publish full to private
+    └── publish-public.sh              # Auto-publish core to public
 ```
 
 ### On Push/Merge → Automatic Dual Publishing
