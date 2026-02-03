@@ -17,9 +17,9 @@
     "test:cloud": "npm run test -w @enterprise-openclaw/cloud",
     "lint": "npm run lint --workspaces --if-present",
     "clean": "npm run clean --workspaces --if-present && rm -rf node_modules",
-    "dev": "tsx src/index.ts",
-    "start": "node dist/index.js",
-    "dashboard": "node dist/dashboard.js"
+    "start": "tsx server.ts",
+    "dev": "tsx server.ts",
+    "server": "tsx server.ts"
   },
   "keywords": [
     "ai",
@@ -32,12 +32,15 @@
   "author": "Enterprise OpenClaw Team",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@types/express": "^4.17.25",
     "@types/node": "^20.19.30",
     "@typescript-eslint/eslint-plugin": "^6.18.1",
     "@typescript-eslint/parser": "^6.18.1",
     "@vitest/coverage-v8": "^2.1.9",
     "eslint": "^8.56.0",
     "eslint-plugin-security": "^2.1.0",
+    "express": "^5.2.1",
+    "pino": "^10.3.0",
     "tsx": "^4.21.0",
     "typescript": "^5.7.3",
     "vitest": "^2.1.9"

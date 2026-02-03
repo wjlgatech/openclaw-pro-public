@@ -32,56 +32,71 @@ Perfect for building **intelligent assistants**, **automated workflows**, and **
 
 ## ⚡ Quick Start
 
-### One-Command Installation
+### 🚀 One-Click: Install + Run
 
 ```bash
-# Clone and install everything automatically
 git clone https://github.com/wjlgatech/enterprise-openclaw.git && \
 cd enterprise-openclaw && \
 ./install.sh
 ```
 
-**Or step-by-step:**
+**The script will:**
+1. ✓ Check prerequisites (Node.js >= 20)
+2. ✓ Install all dependencies
+3. ✓ Build all packages
+4. ✓ Run tests
+5. ✓ **Ask if you want to start the app**
+
+**Then open:** http://localhost:3000 🎉
+
+### ⚡ Super Quick (Manual)
 
 ```bash
 git clone https://github.com/wjlgatech/enterprise-openclaw.git
 cd enterprise-openclaw
-npm install && npm run build && npm test
+npm install && npm run build && npm start
 ```
 
-**Just want to try it?**
-
-```bash
-# Minimum to get started (no tests)
-git clone https://github.com/wjlgatech/enterprise-openclaw.git
-cd enterprise-openclaw && npm install && npm run build
-```
+Open http://localhost:3000 and you're running the full application!
 
 > **Note:** For public repositories, you can also use:
 > `curl -fsSL https://raw.githubusercontent.com/wjlgatech/enterprise-openclaw/main/install.sh | bash`
 
-### Your First Agent (30 seconds)
+### 🌐 What You Get: Full Application
 
-```typescript
-import { KnowledgeGraph } from '@enterprise-openclaw/core';
+Once running, you'll have access to:
 
-// Create a knowledge graph
-const kg = new KnowledgeGraph('./data/knowledge');
-await kg.initialize();
+- **Web UI** - Beautiful interface at http://localhost:3000
+- **REST API** - Full API at http://localhost:3000/api
+- **Knowledge Graph** - Store and query information intelligently
+- **Vector Search** - Semantic similarity search
+- **Multi-Agent System** - Ready for agent orchestration
 
-// Add knowledge
-await kg.addNode({
-  id: 'user_preferences',
-  type: 'concept',
-  content: 'Users prefer dark mode at night'
-});
+**Web UI Features:**
+- 🔍 Query knowledge with natural language
+- ➕ Add new knowledge to the graph
+- 📚 Browse all stored knowledge
+- ℹ️ View system information
+- 📊 Real-time status monitoring
 
-// Query intelligently
-const results = await kg.queryNodes('user interface preferences');
-console.log(results); // Finds relevant knowledge automatically
+### 💻 API Endpoints
+
+```bash
+# Health check
+curl http://localhost:3000/api/health
+
+# Query knowledge
+curl -X POST http://localhost:3000/api/query \
+  -H "Content-Type: application/json" \
+  -d '{"query": "What are the capabilities?"}'
+
+# Add knowledge
+curl -X POST http://localhost:3000/api/knowledge \
+  -H "Content-Type: application/json" \
+  -d '{"content": "Enterprise OpenClaw is amazing", "type": "fact"}'
 ```
 
-**That's it!** 🎉 You're using Enterprise OpenClaw.
+**That's it!** 🎉 Full platform running in one command.
 
 ---
 

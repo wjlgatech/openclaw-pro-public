@@ -81,17 +81,25 @@ echo -e "${GREEN}║     ✓ Installation Complete!             ║${NC}"
 echo -e "${GREEN}║                                           ║${NC}"
 echo -e "${GREEN}╚═══════════════════════════════════════════╝${NC}"
 echo ""
-echo -e "${BLUE}Next steps:${NC}"
-echo ""
-echo -e "  ${YELLOW}1. Start with the core (open source):${NC}"
-echo "     npm run demo:core"
-echo ""
-echo -e "  ${YELLOW}2. Try enterprise features (requires license):${NC}"
-echo "     export ENTERPRISE_LICENSE_KEY='your-license-key'"
-echo "     npm run demo:enterprise"
-echo ""
-echo -e "  ${YELLOW}3. Read the documentation:${NC}"
-echo "     cat README.md"
-echo ""
-echo -e "${GREEN}Happy coding! 🚀${NC}"
-echo ""
+
+# Ask to start the application
+echo -e "${YELLOW}Would you like to start the application now? (y/n)${NC}"
+read -r response
+
+if [[ "$response" =~ ^[Yy]$ ]]; then
+    echo ""
+    echo -e "${BLUE}Starting Enterprise OpenClaw...${NC}"
+    echo ""
+    npm start
+else
+    echo ""
+    echo -e "${BLUE}To start the application later, run:${NC}"
+    echo "     cd enterprise-openclaw"
+    echo "     npm start"
+    echo ""
+    echo -e "${BLUE}Then open your browser to:${NC}"
+    echo "     http://localhost:3000"
+    echo ""
+    echo -e "${GREEN}Happy coding! 🚀${NC}"
+    echo ""
+fi
