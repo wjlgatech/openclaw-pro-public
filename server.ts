@@ -8,7 +8,6 @@
 
 import express from 'express';
 import { KnowledgeGraph } from './packages/core/src/knowledge-graph/knowledge-graph.js';
-import { BasicRAG } from './packages/core/src/rag/basic-rag.js';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import pino from 'pino';
@@ -26,7 +25,6 @@ app.use(express.static(join(__dirname, 'public')));
 
 // Initialize systems
 let knowledgeGraph: KnowledgeGraph;
-let ragSystem: BasicRAG;
 let isInitialized = false;
 
 async function initializeSystem() {
@@ -38,11 +36,6 @@ async function initializeSystem() {
     knowledgeGraph = new KnowledgeGraph('./data/knowledge-graph');
     await knowledgeGraph.initialize();
     logger.info('✓ Knowledge Graph initialized');
-
-    // Initialize RAG System
-    logger.info('📚 Initializing RAG System...');
-    ragSystem = new BasicRAG(knowledgeGraph);
-    logger.info('✓ RAG System initialized');
 
     // Add initial knowledge
     logger.info('📝 Loading initial knowledge...');
@@ -84,8 +77,7 @@ app.get('/api/health', (req, res) => {
     timestamp: Date.now(),
     version: '1.0.0',
     components: {
-      knowledgeGraph: isInitialized ? 'ready' : 'initializing',
-      ragSystem: isInitialized ? 'ready' : 'initializing'
+      knowledgeGraph: isInitialized ? 'ready' : 'initializing'
     }
   });
 });
@@ -333,7 +325,6 @@ async function start() {
       console.log('');
       console.log('📚 Features:');
       console.log('   • Knowledge Graph - Active');
-      console.log('   • RAG System - Ready');
       console.log('   • Chat Interface - Loaded');
       console.log('   • 100% Local - Privacy Protected');
       console.log('');
