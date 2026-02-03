@@ -62,6 +62,13 @@ if [ -f "server.ts" ]; then
     echo -e "${GREEN}✓ Server copied${NC}"
 fi
 
+# Copy install script
+if [ -f "install.sh" ]; then
+    cp install.sh "$TEMP_DIR/"
+    chmod +x "$TEMP_DIR/install.sh"
+    echo -e "${GREEN}✓ Install script copied${NC}"
+fi
+
 # Copy public web UI
 if [ -d "public" ]; then
     cp -r public "$TEMP_DIR/"

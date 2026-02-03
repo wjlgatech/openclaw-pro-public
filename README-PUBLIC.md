@@ -35,15 +35,30 @@
 
 ## ⚡ Quick Start
 
-### One-Command Installation
+### 🚀 One-Click: Install + Run
 
 ```bash
 git clone https://github.com/wjlgatech/enterprise-openclaw-public.git && \
 cd enterprise-openclaw-public && \
-npm install && npm run build && npm start
+./install.sh
 ```
 
+**The script will:**
+1. ✓ Check prerequisites (Node.js >= 20)
+2. ✓ Install all dependencies
+3. ✓ Build the core package
+4. ✓ Run tests
+5. ✓ Ask if you want to start the app
+
 **Then open:** http://localhost:3000 🎉
+
+### Or Manual Installation
+
+```bash
+git clone https://github.com/wjlgatech/enterprise-openclaw-public.git
+cd enterprise-openclaw-public
+npm install && npm run build && npm start
+```
 
 ### What You'll See
 
