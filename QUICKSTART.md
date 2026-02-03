@@ -1,267 +1,186 @@
-# Quick Start Guide - Enterprise OpenClaw
+# 🚀 Enterprise OpenClaw - Quick Start Guide
 
-Get your GenAI-native multi-agent platform running in 5 minutes!
-
-## Prerequisites
-
-- Node.js 20+
-- Anthropic API Key ([get one here](https://console.anthropic.com/))
-
-## Installation
-
-```bash
-# 1. Install dependencies
-npm install
-
-# 2. Configure API key
-cp .env.example .env
-# Edit .env and add your ANTHROPIC_API_KEY
-
-# 3. Build the project
-npm run build
-```
-
-## Start the Server
-
-```bash
-npm start
-```
-
-You should see:
-
-```
-╔═══════════════════════════════════════════════════════════════╗
-║         Enterprise OpenClaw - GenAI-Native Platform          ║
-║  🚀 Server running on http://localhost:8789                  ║
-║  📊 Dashboard: http://localhost:8789/dashboard               ║
-╚═══════════════════════════════════════════════════════════════╝
-```
-
-## Run Demo
-
-In a new terminal:
-
-```bash
-chmod +x demo.sh
-./demo.sh
-```
-
-This will demonstrate:
-- Code generation with AI agents
-- PII detection and masking
-- Self-improvement proposals
-- Metrics collection
-
-## Create Your First Task
-
-### Via CLI:
-
-```bash
-node dist/cli.js create "Build a REST API for user authentication"
-```
-
-### Via REST API:
-
-```bash
-curl -X POST http://localhost:8789/api/tasks \
-  -H "Content-Type: application/json" \
-  -d '{
-    "tenantId": "my-tenant",
-    "sessionId": "my-session",
-    "description": "Create a password hashing utility with bcrypt",
-    "agents": [
-      {
-        "name": "code-gen",
-        "type": "code-generator",
-        "description": "Generate secure password utility",
-        "config": {}
-      }
-    ]
-  }'
-```
-
-### Via WebSocket:
-
-```bash
-npm install -g wscat
-wscat -c "ws://localhost:8789?clientId=my-client"
-
-# Send:
-{
-  "type": "create-task",
-  "data": {
-    "tenantId": "my-tenant",
-    "sessionId": "my-session",
-    "description": "Analyze customer churn data",
-    "agents": [
-      {
-        "name": "analyzer",
-        "type": "analyzer",
-        "description": "Analyze churn patterns",
-        "config": { "analysisType": "churn" }
-      }
-    ]
-  }
-}
-```
-
-## View the Dashboard
-
-Open http://localhost:8789/dashboard in your browser to see:
-- Real-time task execution
-- Self-improvement proposals
-- System metrics
-- Quick start examples
-
-## Multi-Agent Workflow Example
-
-Create a complex workflow with multiple agents:
-
-```bash
-curl -X POST http://localhost:8789/api/tasks \
-  -H "Content-Type: application/json" \
-  -d '{
-    "tenantId": "my-tenant",
-    "sessionId": "my-session",
-    "description": "Build a complete user management system",
-    "agents": [
-      {
-        "name": "data-modeler",
-        "type": "code-generator",
-        "description": "Design user data models",
-        "config": {}
-      },
-      {
-        "name": "api-builder",
-        "type": "code-generator",
-        "description": "Build REST API endpoints",
-        "config": {},
-        "dependsOn": ["data-modeler"]
-      },
-      {
-        "name": "security-analyzer",
-        "type": "analyzer",
-        "description": "Analyze security posture",
-        "config": { "analysisType": "security" },
-        "dependsOn": ["api-builder"]
-      }
-    ]
-  }'
-```
-
-Agents execute in dependency order:
-1. `data-modeler` runs first
-2. `api-builder` waits for data-modeler to complete
-3. `security-analyzer` runs after api-builder
-
-## View Self-Improvement Proposals
-
-After running several tasks:
-
-```bash
-curl http://localhost:8789/api/improvement/proposals
-```
-
-Example output:
-
-```json
-[
-  {
-    "id": "prop-123",
-    "type": "config_change",
-    "target": "code-generator.timeout",
-    "currentValue": 30000,
-    "proposedValue": 60000,
-    "rationale": "code-generator frequently times out on complex tasks",
-    "expectedImprovement": "20% reduction in timeout failures",
-    "status": "proposed"
-  }
-]
-```
-
-Approve a proposal:
-
-```bash
-curl -X POST http://localhost:8789/api/improvement/proposals/prop-123/approve
-```
-
-## Explore Data
-
-All metrics and logs are stored locally:
-
-```bash
-# View metrics
-cat data/metrics/metrics-2026-02-02.jsonl | jq '.'
-
-# View audit logs
-cat data/audit-logs/audit-2026-02-02.jsonl | jq '.'
-
-# View improvement data
-cat data/improvement/proposals.json | jq '.'
-```
-
-## Key Features to Try
-
-### 1. PII Detection
-
-Create a task with PII and watch it get automatically masked:
-
-```bash
-node dist/cli.js create "Process order for John Smith, SSN 123-45-6789"
-```
-
-Check audit logs to see PII was detected and masked.
-
-### 2. Parallel Execution
-
-Create multiple tasks simultaneously - the system handles queuing and parallel execution:
-
-```bash
-for i in {1..5}; do
-  node dist/cli.js create "Task $i: Generate code" &
-done
-```
-
-### 3. Real-Time Streaming
-
-Connect via WebSocket to see live progress updates:
-
-```bash
-wscat -c "ws://localhost:8789?clientId=monitor"
-# You'll receive real-time task events
-```
-
-## Next Steps
-
-- Read the [Architecture Overview](README.md#architecture-overview)
-- Review [Security Policy](SECURITY.md)
-- Explore the codebase in `src/`
-- Build custom agents by extending `AgentExecutor`
-- Integrate with your existing systems
-
-## Troubleshooting
-
-**Server won't start:**
-- Check Node.js version: `node --version` (must be 20+)
-- Verify API key is set in `.env`
-- Check port 8789 is available: `lsof -i :8789`
-
-**Tasks failing:**
-- Check Anthropic API key is valid
-- Ensure you have API credits
-- View error details in audit logs
-
-**No improvement proposals:**
-- System needs 3+ similar patterns to propose improvements
-- Run more tasks to generate training data
-- Check `data/improvement/patterns.json`
-
-## Support
-
-- Report issues: GitHub Issues
-- Questions: Check documentation
-- Security issues: See [SECURITY.md](SECURITY.md)
+Get up and running with DRIFT RAG in 5 minutes!
 
 ---
 
-**You're now running an enterprise-grade, self-improving AI platform! 🚀**
+## 📋 Prerequisites
+
+Before you begin, ensure you have:
+
+- ✅ **Node.js 18+** ([Download](https://nodejs.org/))
+- ✅ **npm 9+** (comes with Node.js)
+- ✅ **Git** ([Download](https://git-scm.com/))
+- ✅ **10 GB free disk space** (for dependencies and databases)
+
+### Verify Prerequisites
+
+```bash
+node --version    # Should show v18.x.x or higher
+npm --version     # Should show 9.x.x or higher
+git --version     # Should show 2.x.x or higher
+```
+
+---
+
+## 📥 Step 1: Clone the Repository
+
+```bash
+# Clone from GitHub
+git clone https://github.com/wjlgatech/enterprise-openclaw.git
+
+# Navigate to project directory
+cd enterprise-openclaw
+
+# Verify you're in the right place
+ls -la  # Should see package.json, README.md, etc.
+```
+
+---
+
+## 📦 Step 2: Install Dependencies
+
+```bash
+# Install all Node.js dependencies
+npm install
+
+# This will take 2-5 minutes depending on your internet speed
+# You should see a progress bar installing ~500+ packages
+```
+
+**Expected Output:**
+```
+added 523 packages, and audited 524 packages in 2m
+```
+
+---
+
+## 🔧 Step 3: Build the Project
+
+```bash
+# Compile TypeScript to JavaScript
+npm run build
+
+# This takes ~30 seconds
+```
+
+**Expected Output:**
+```
+> enterprise-openclaw@1.0.0 build
+> tsc
+
+✓ Build completed successfully
+```
+
+---
+
+## ✅ Step 4: Run Tests (Optional but Recommended)
+
+Verify everything works by running the test suite:
+
+```bash
+# Run all tests
+npm test
+
+# Or run specific DRIFT RAG tests only
+npm test tests/knowledge-system/rag-modes/drift-rag.test.ts
+npm test tests/knowledge-system/inference-engine.test.ts
+```
+
+**Expected Output:**
+```
+✓ Test Files  2 passed (2)
+✓ Tests  91 passed (91)
+Duration: ~20s
+```
+
+---
+
+## 🎯 Step 5: Try Your First DRIFT RAG Query!
+
+### Option A: Interactive Node.js REPL
+
+```bash
+# Start Node.js with TypeScript support
+npx tsx
+
+# Now paste this code:
+```
+
+```typescript
+import { DRIFTRAG } from './extensions/knowledge-system/rag-modes/drift-rag.js';
+import { KnowledgeGraph } from './extensions/knowledge-system/knowledge-graph.js';
+
+// Create a knowledge graph
+const graph = new KnowledgeGraph('./my-first-kb.db');
+await graph.initialize();
+
+// Add some knowledge
+await graph.addNode({
+  id: 'node1',
+  content: 'Machine learning is a subset of artificial intelligence',
+  embedding: Array(384).fill(0).map(() => Math.random() - 0.5),
+  metadata: { type: 'definition' }
+});
+
+await graph.addNode({
+  id: 'node2',
+  content: 'Deep learning uses neural networks with multiple layers',
+  embedding: Array(384).fill(0).map(() => Math.random() - 0.5),
+  metadata: { type: 'definition' }
+});
+
+await graph.addEdge({
+  id: 'edge1',
+  source: 'node1',
+  target: 'node2',
+  type: 'includes',
+  weight: 0.9
+});
+
+// Create DRIFT RAG instance
+const driftRAG = new DRIFTRAG({ knowledgeGraph: graph });
+
+// Ask a question!
+const answer = await driftRAG.query('What is deep learning?');
+console.log(answer);
+
+// Clean up
+await graph.close();
+```
+
+### Option B: Run the Example Script
+
+```bash
+# Run the pre-built example
+npx tsx examples/drift-rag-example.ts
+```
+
+**Expected Output:**
+```
+╔═══════════════════════════════════════════════════════════╗
+║          DRIFT RAG Examples                               ║
+║  Dynamic Reasoning and Inference with Flexible Traversal  ║
+╚═══════════════════════════════════════════════════════════╝
+
+=== Example 1: Basic DRIFT RAG Usage ===
+
+Query: What is deep learning?
+
+Response:
+Based on the knowledge graph exploration...
+
+✅ All examples completed successfully!
+```
+
+---
+
+## 📚 Next Steps
+
+1. **Read the docs**: [DRIFT_RAG_README.md](extensions/knowledge-system/rag-modes/DRIFT_RAG_README.md)
+2. **Try examples**: [drift-rag-example.ts](examples/drift-rag-example.ts)
+3. **Build something**: Start with your own knowledge base!
+
+---
+
+**Happy Building! 🚀**

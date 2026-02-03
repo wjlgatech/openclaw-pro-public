@@ -96,14 +96,44 @@ Enterprise OpenClaw transforms traditional AI assistants into a **self-upgrading
 
 ---
 
-## Quick Start
+## 🚀 Quick Start (5 Minutes!)
 
-### Installation
+> **New to Enterprise OpenClaw?** Follow our [📖 Complete Quick Start Guide](QUICKSTART.md) for detailed setup instructions!
+
+### ⚡ Lightning Fast Setup
 
 ```bash
+# 1. Clone the repository
+git clone https://github.com/wjlgatech/enterprise-openclaw.git
+cd enterprise-openclaw
+
+# 2. Install dependencies (2-5 minutes)
 npm install
+
+# 3. Build the project (~30 seconds)
 npm run build
+
+# 4. Run tests to verify (optional)
+npm test tests/knowledge-system/rag-modes/drift-rag.test.ts
+
+# 5. Try DRIFT RAG!
+npx tsx examples/drift-rag-example.ts
 ```
+
+### 🎯 Your First DRIFT RAG Query (3 Lines!)
+
+```typescript
+import { DRIFTRAG, KnowledgeGraph } from 'enterprise-openclaw';
+
+const graph = new KnowledgeGraph('./my-kb.db');
+await graph.initialize();
+
+const driftRAG = new DRIFTRAG({ knowledgeGraph: graph });
+const answer = await driftRAG.query('Your question here');
+console.log(answer);
+```
+
+**📘 See [QUICKSTART.md](QUICKSTART.md) for complete installation & usage guide!**
 
 ### Configuration
 
