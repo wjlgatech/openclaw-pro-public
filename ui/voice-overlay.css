@@ -1,0 +1,478 @@
+/**
+ * Voice Overlay Styles for Enterprise OpenClaw
+ * Injected into clawdbot Control UI
+ */
+
+#enterprise-voice-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+#enterprise-voice-overlay * {
+  pointer-events: auto;
+}
+
+/* ========== Mic Button ========== */
+
+.voice-button {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10000;
+  position: relative;
+}
+
+.voice-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+}
+
+.voice-button:active {
+  transform: scale(0.95);
+}
+
+.voice-button .mic-icon {
+  color: white;
+  z-index: 2;
+}
+
+.voice-button .pulse-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  opacity: 0;
+  z-index: 1;
+}
+
+/* Listening State */
+.voice-button.listening {
+  background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+  box-shadow: 0 4px 20px rgba(255, 68, 68, 0.6);
+}
+
+.voice-button.listening .pulse-ring {
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Speaking State */
+.voice-button.speaking {
+  background: linear-gradient(135deg, #4444ff 0%, #0000cc 100%);
+  box-shadow: 0 4px 20px rgba(68, 68, 255, 0.6);
+}
+
+.voice-button.speaking .pulse-ring {
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Error State */
+.voice-button.error {
+  background: linear-gradient(135deg, #ff6b6b 0%, #c92a2a 100%);
+  box-shadow: 0 4px 20px rgba(255, 107, 107, 0.6);
+  animation: shake 0.5s;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* ========== Transcription Display ========== */
+
+.voice-transcription {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  z-index: 10001;
+}
+
+.voice-transcription.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(-20px);
+}
+
+.transcription-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.transcription-label {
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.transcription-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.transcription-close:hover {
+  opacity: 0.7;
+}
+
+.transcription-content {
+  padding: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.user-speech,
+.ai-response {
+  margin-bottom: 16px;
+}
+
+.ai-response.hidden {
+  display: none;
+}
+
+.speaker-label {
+  font-weight: 600;
+  color: #667eea;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+
+.speech-text {
+  color: #333;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+.transcription-footer {
+  padding: 16px 20px;
+  background: rgba(0, 0, 0, 0.03);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.waveform-container {
+  display: flex;
+  justify-content: center;
+}
+
+#waveform-canvas {
+  width: 100%;
+  height: 50px;
+}
+
+/* ========== Error Notification ========== */
+
+.voice-error {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  max-width: 400px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  animation: slideIn 0.3s ease;
+  z-index: 10002;
+}
+
+.voice-error.hidden {
+  display: none;
+}
+
+.error-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.error-icon {
+  font-size: 32px;
+}
+
+.error-message {
+  color: #333;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.error-close {
+  align-self: flex-end;
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.error-close:hover {
+  background: #5568d3;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* ========== Settings Panel ========== */
+
+.voice-settings {
+  position: fixed;
+  bottom: 100px;
+  right: 24px;
+  width: 320px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  z-index: 10003;
+  animation: fadeIn 0.2s ease;
+}
+
+.voice-settings.hidden {
+  display: none;
+}
+
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.settings-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.settings-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.settings-content {
+  padding: 20px;
+}
+
+.setting-item {
+  margin-bottom: 20px;
+}
+
+.setting-item:last-child {
+  margin-bottom: 0;
+}
+
+.setting-item label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+}
+
+.setting-item input[type="range"] {
+  width: 200px;
+  margin-right: 10px;
+}
+
+.setting-item select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+}
+
+.setting-item input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+#volume-value {
+  font-size: 13px;
+  color: #667eea;
+  font-weight: 600;
+}
+
+.voice-settings-trigger {
+  position: fixed;
+  bottom: 100px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #667eea;
+  color: #667eea;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+  z-index: 9999;
+}
+
+.voice-settings-trigger:hover {
+  background: #667eea;
+  color: white;
+  transform: scale(1.1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ========== Dark Mode Support ========== */
+
+@media (prefers-color-scheme: dark) {
+  .voice-transcription {
+    background: rgba(30, 30, 30, 0.98);
+  }
+
+  .transcription-content {
+    color: #e0e0e0;
+  }
+
+  .speech-text {
+    color: #e0e0e0;
+  }
+
+  .voice-settings {
+    background: #2a2a2a;
+    color: #e0e0e0;
+  }
+
+  .setting-item select {
+    background: #3a3a3a;
+    color: #e0e0e0;
+    border-color: #4a4a4a;
+  }
+
+  .voice-error {
+    background: #2a2a2a;
+  }
+
+  .error-message {
+    color: #e0e0e0;
+  }
+}
+
+/* ========== Mobile Responsive ========== */
+
+@media (max-width: 768px) {
+  .voice-button {
+    width: 56px;
+    height: 56px;
+    bottom: 16px;
+    right: 16px;
+  }
+
+  .voice-transcription {
+    width: 95%;
+    top: 60px;
+  }
+
+  .voice-settings {
+    width: 90%;
+    right: 5%;
+  }
+
+  .voice-error {
+    width: 90%;
+    right: 5%;
+  }
+}
+
+/* ========== Accessibility ========== */
+
+.voice-button:focus,
+.transcription-close:focus,
+.settings-close:focus,
+.error-close:focus,
+.voice-settings-trigger:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

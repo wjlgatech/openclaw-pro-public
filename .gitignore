@@ -1,11 +1,11 @@
 # Dependencies
 node_modules/
-.pnpm-store/
+npm-debug.log*
 
 # Build outputs
 dist/
+build/
 *.tsbuildinfo
-coverage/
 
 # Environment
 .env
@@ -23,14 +23,17 @@ Thumbs.db
 
 # Logs
 *.log
-npm-debug.log*
-
-# Archive (keep in git for history)
-# archive/
-
-# Test data
-data/
+logs/
 
 # Temporary files
+tmp/
+temp/
 *.tmp
-.cache/
+
+# Archives (keep in repo but ignore changes)
+archive/
+
+# Piper TTS downloads (large files)
+piper/
+*.tar.gz
+voices/*.onnx

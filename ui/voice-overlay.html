@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+  Voice Overlay for Enterprise OpenClaw
+  Injects real-time voice conversation capability into clawdbot Control UI
+-->
+<div id="enterprise-voice-overlay">
+  <!-- Floating Mic Button -->
+  <button id="voice-button" class="voice-button" title="Push to Talk (P key)" aria-label="Push to talk">
+    <svg class="mic-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+      <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+      <line x1="12" y1="19" x2="12" y2="23"></line>
+      <line x1="8" y1="23" x2="16" y2="23"></line>
+    </svg>
+    <div class="pulse-ring"></div>
+  </button>
+
+  <!-- Transcription Display -->
+  <div id="voice-transcription" class="voice-transcription hidden">
+    <div class="transcription-header">
+      <span class="transcription-label">Listening...</span>
+      <button class="transcription-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="transcription-content">
+      <div class="user-speech">
+        <span class="speaker-label">You:</span>
+        <span id="user-text" class="speech-text"></span>
+      </div>
+      <div class="ai-response hidden">
+        <span class="speaker-label">🦅 Enterprise OpenClaw:</span>
+        <span id="ai-text" class="speech-text"></span>
+      </div>
+    </div>
+    <div class="transcription-footer">
+      <div class="waveform-container">
+        <canvas id="waveform-canvas" width="300" height="50"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Notification -->
+  <div id="voice-error" class="voice-error hidden">
+    <div class="error-content">
+      <div class="error-icon">⚠️</div>
+      <div class="error-message" id="error-message"></div>
+      <button class="error-close" id="error-close">Dismiss</button>
+    </div>
+  </div>
+
+  <!-- Settings Panel (Optional) -->
+  <div id="voice-settings" class="voice-settings hidden">
+    <div class="settings-header">
+      <h3>Voice Settings</h3>
+      <button class="settings-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="settings-content">
+      <div class="setting-item">
+        <label for="voice-volume">Volume</label>
+        <input type="range" id="voice-volume" min="0" max="100" value="80" />
+        <span id="volume-value">80%</span>
+      </div>
+      <div class="setting-item">
+        <label for="voice-language">Language</label>
+        <select id="voice-language">
+          <option value="en-US" selected>English (US)</option>
+          <option value="en-GB">English (UK)</option>
+          <option value="es-ES">Spanish</option>
+          <option value="fr-FR">French</option>
+          <option value="de-DE">German</option>
+          <option value="zh-CN">Chinese</option>
+        </select>
+      </div>
+      <div class="setting-item">
+        <label for="voice-select">Voice</label>
+        <select id="voice-select">
+          <option value="en-US-Jenny" selected>Jenny (US Female)</option>
+          <option value="en-US-Guy">Guy (US Male)</option>
+          <option value="en-US-Aria">Aria (US Female)</option>
+          <option value="en-GB-Sonia">Sonia (UK Female)</option>
+        </select>
+      </div>
+      <div class="setting-item">
+        <label>
+          <input type="checkbox" id="keyboard-shortcut" checked />
+          Enable keyboard shortcut (P key)
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Trigger (Gear Icon) -->
+  <button id="voice-settings-trigger" class="voice-settings-trigger" title="Voice Settings" aria-label="Voice settings">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="3"></circle>
+      <path d="M12 1v6m0 6v6m0-6h6m-6 0H6"></path>
+    </svg>
+  </button>
+</div>
