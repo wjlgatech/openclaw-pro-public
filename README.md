@@ -2,16 +2,15 @@
 
 # 🦅 Enterprise OpenClaw
 
-### GenAI-Native Multi-Agent Platform with Self-Improvement
+### Open Source Multi-Agent Platform
 
-**Build intelligent systems that learn and evolve**
+**GenAI-native platform for building intelligent systems**
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/wjlgatech/enterprise-openclaw)
-[![License](https://img.shields.io/badge/license-Apache%202.0%20%2B%20Enterprise-green.svg)](./LICENSE)
-[![Tests](https://img.shields.io/badge/tests-134%20passing-brightgreen.svg)](./FINAL_COMPLETION_REPORT.md)
-[![Status](https://img.shields.io/badge/status-production%20ready-success.svg)](./FINAL_COMPLETION_REPORT.md)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/wjlgatech/enterprise-openclaw-public)
+[![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)](./LICENSE)
+[![Open Source](https://img.shields.io/badge/open%20source-core-brightgreen.svg)](https://github.com/wjlgatech/enterprise-openclaw-public)
 
-[Quick Start](#-quick-start) • [Features](#-features) • [Documentation](#-documentation) • [License Tiers](#-license-tiers) • [Support](#-support)
+[Quick Start](#-quick-start) • [Features](#-features) • [Documentation](#-documentation) • [Enterprise](#-enterprise-version)
 
 </div>
 
@@ -19,14 +18,18 @@
 
 ## 🎯 What is Enterprise OpenClaw?
 
-Enterprise OpenClaw is a **production-ready platform** for building GenAI-powered multi-agent systems with:
+**Open source core** of a production-ready platform for building GenAI-powered multi-agent systems.
 
-- 🧠 **Advanced Knowledge Graph** - Dynamic reasoning with DRIFT RAG technology
-- 🤖 **Multi-Agent Orchestration** - Coordinate multiple AI agents seamlessly
-- 🔄 **Self-Improvement** - Systems that learn and optimize themselves
-- 🔓 **Open Core** - Start free, upgrade when you need more
+### What You Get (Free & Open Source)
 
-Perfect for building **intelligent assistants**, **automated workflows**, and **adaptive AI systems**.
+- 🧠 **Knowledge Graph** - Store and traverse complex information
+- 🔍 **Vector Search** - Semantic similarity with LanceDB
+- 📚 **Basic RAG** - Retrieval-Augmented Generation for AI apps
+- 🤖 **Multi-Agent Foundation** - Build and coordinate AI agents
+- 🌐 **Web UI** - Interactive knowledge management interface
+- 🔌 **REST API** - Ready-to-use HTTP endpoints
+
+**License:** Apache 2.0 - Use it anywhere, commercially or personally!
 
 ---
 
@@ -35,233 +38,199 @@ Perfect for building **intelligent assistants**, **automated workflows**, and **
 ### 🚀 One-Click: Install + Run
 
 ```bash
-git clone https://github.com/wjlgatech/enterprise-openclaw.git && \
-cd enterprise-openclaw && \
+git clone https://github.com/wjlgatech/enterprise-openclaw-public.git && \
+cd enterprise-openclaw-public && \
 ./install.sh
 ```
 
 **The script will:**
 1. ✓ Check prerequisites (Node.js >= 20)
 2. ✓ Install all dependencies
-3. ✓ Build all packages
+3. ✓ Build the core package
 4. ✓ Run tests
-5. ✓ **Ask if you want to start the app**
+5. ✓ Ask if you want to start the app
 
 **Then open:** http://localhost:3000 🎉
 
-### ⚡ Super Quick (Manual)
+### Or Manual Installation
 
 ```bash
-git clone https://github.com/wjlgatech/enterprise-openclaw.git
-cd enterprise-openclaw
+git clone https://github.com/wjlgatech/enterprise-openclaw-public.git
+cd enterprise-openclaw-public
 npm install && npm run build && npm start
 ```
 
-Open http://localhost:3000 and you're running the full application!
+### What You'll See
 
-> **Note:** For public repositories, you can also use:
-> `curl -fsSL https://raw.githubusercontent.com/wjlgatech/enterprise-openclaw/main/install.sh | bash`
+A beautiful web interface with:
+- 🔍 **Query knowledge** - Natural language search
+- ➕ **Add knowledge** - Build your knowledge base
+- 📚 **Browse all** - View stored information
+- 📊 **Live status** - Real-time monitoring
 
-### 🌐 What You Get: Full Application
+---
 
-Once running, you'll have access to:
+## 💻 Use as a Library
 
-- **Web UI** - Beautiful interface at http://localhost:3000
-- **REST API** - Full API at http://localhost:3000/api
-- **Knowledge Graph** - Store and query information intelligently
-- **Vector Search** - Semantic similarity search
-- **Multi-Agent System** - Ready for agent orchestration
-
-**Web UI Features:**
-- 🔍 Query knowledge with natural language
-- ➕ Add new knowledge to the graph
-- 📚 Browse all stored knowledge
-- ℹ️ View system information
-- 📊 Real-time status monitoring
-
-### 💻 API Endpoints
+### Installation
 
 ```bash
-# Health check
-curl http://localhost:3000/api/health
-
-# Query knowledge
-curl -X POST http://localhost:3000/api/query \
-  -H "Content-Type: application/json" \
-  -d '{"query": "What are the capabilities?"}'
-
-# Add knowledge
-curl -X POST http://localhost:3000/api/knowledge \
-  -H "Content-Type: application/json" \
-  -d '{"content": "Enterprise OpenClaw is amazing", "type": "fact"}'
+npm install @enterprise-openclaw/core
 ```
 
-**That's it!** 🎉 Full platform running in one command.
+### Basic Usage
+
+```typescript
+import { KnowledgeGraph } from '@enterprise-openclaw/core';
+
+// Create a knowledge graph
+const kg = new KnowledgeGraph('./data/knowledge');
+await kg.initialize();
+
+// Add knowledge
+await kg.addNode({
+  id: 'concept_1',
+  type: 'concept',
+  content: 'Enterprise OpenClaw is a GenAI platform'
+});
+
+// Query with natural language
+const results = await kg.queryNodes('what is enterprise openclaw');
+console.log(results);
+```
+
+That's it! 🚀
 
 ---
 
-## ✨ Features
+## ✨ Core Features (Open Source)
 
-### 🔓 Open Source Core (Apache 2.0)
+### Knowledge Graph
+- Store nodes with relationships
+- Graph traversal and queries
+- Metadata support
+- Type-safe operations
 
-- **Knowledge Graph** - Store and traverse complex information
-- **Vector Search** - Semantic similarity with LanceDB
-- **Basic RAG** - Retrieval-Augmented Generation for AI apps
-- **Multi-Agent Foundation** - Build and coordinate agents
+### Vector Search
+- Semantic similarity search
+- LanceDB integration
+- Fast approximate nearest neighbor
+- Customizable embeddings
 
-### 🔒 Enterprise Features (Licensed)
+### Basic RAG
+- Retrieval-augmented generation
+- Context injection for LLMs
+- Simple and effective
 
-- **Advanced DRIFT RAG** - Dynamic reasoning with inference engine
-- **Smart Caching** - 10x faster responses with intelligent cache
-- **PII Detection** - Automatic privacy protection
-- **Audit Logging** - Complete compliance trail
-- **Multi-Tenant** - Isolate customer data securely
-- **Enterprise Connectors** - Integrate with your stack
+### Multi-Agent Foundation
+- Agent orchestration basics
+- Task coordination
+- Message passing
 
-[→ Compare License Tiers](#-license-tiers)
-
----
-
-## 📦 What's Included
-
-```
-enterprise-openclaw/
-├── packages/core/          # 🔓 Open source (Apache 2.0)
-│   ├── Knowledge Graph     # Store and query knowledge
-│   ├── Vector Store        # Semantic search
-│   └── Basic RAG           # Simple retrieval
-│
-└── packages/enterprise/    # 🔒 Licensed features
-    ├── Advanced DRIFT RAG  # Dynamic reasoning
-    ├── Inference Engine    # Fill knowledge gaps
-    ├── Security            # PII detection, audit logs
-    └── License System      # Production-ready validation
-```
+### Web Interface
+- Modern React-style UI
+- Real-time updates
+- RESTful API
+- Easy integration
 
 ---
 
 ## 📖 Documentation
 
-**Getting Started** (5 min read)
-- [Implementation Summary](./IMPLEMENTATION_SUMMARY.md) - Architecture overview
-- [License System Guide](./LICENSE_SYSTEM_GUIDE.md) - How licensing works
-- [Migration Guide](./MIGRATION_GUIDE.md) - Upgrade from v0.9.x
+**API Reference:**
+- [Knowledge Graph API](./packages/core/README.md#knowledge-graph-api)
+- [Vector Store API](./packages/core/README.md#vector-store-api)
+- [RAG API](./packages/core/README.md#rag-api)
 
-**Operations** (Production deployment)
-- [RSA Key Generation](./docs/RSA_KEY_GENERATION.md) - Secure key management
-- [License Server Deployment](./docs/LICENSE_SERVER_DEPLOYMENT.md) - Deploy validation server
-- [Team Documentation](./docs/TEAM_DOCUMENTATION.md) - Developer handbook
-
-**Reports**
-- [Final Completion Report](./FINAL_COMPLETION_REPORT.md) - Full system audit
+**Examples:**
+- [Basic Knowledge Graph](./examples/basic-knowledge-graph.ts)
+- [Vector Search](./examples/vector-search.ts)
+- [Simple RAG](./examples/basic-rag.ts)
 
 ---
 
-## 💎 License Tiers
+## 🏢 Enterprise Version
 
-<table>
-<tr>
-<td align="center" width="33%">
+Want advanced features for production deployments?
 
-### 🌱 Starter
+**Enterprise OpenClaw** adds:
+- 🚀 **Advanced DRIFT RAG** - Dynamic reasoning with inference
+- 🛡️ **PII Detection** - Automatic privacy protection
+- 📝 **Audit Logging** - Complete compliance trail
+- 🏗️ **Multi-Tenant** - Secure data isolation
+- 🔌 **Enterprise Connectors** - Integration with your stack
+- 🧠 **Inference Engine** - Automatic knowledge gap detection
+- 🆘 **Priority Support** - Email, phone, and Slack
 
-**$99/month**
+### Pricing
 
-- Advanced DRIFT RAG
-- 1 tenant
-- 10 concurrent tasks
-- 100K tokens/month
-- Community support
+| Tier | Price | Features |
+|------|-------|----------|
+| **Starter** | $99/mo | Advanced RAG, 1 tenant, 100K tokens/mo |
+| **Professional** | $499/mo | + Inference, PII detection, 5 tenants |
+| **Enterprise** | Custom | + Multi-tenant, audit logs, unlimited |
 
-[Get Started →](#-support)
+**Learn more:** [Enterprise Features](https://github.com/wjlgatech/enterprise-openclaw#enterprise-features)
 
-</td>
-<td align="center" width="33%">
-
-### 💼 Professional
-
-**$499/month**
-
-- Everything in Starter
-- Inference engine
-- PII detection
-- 5 tenants
-- 25 concurrent tasks
-- 500K tokens/month
-- Email support
-
-[Contact Sales →](#-support)
-
-</td>
-<td align="center" width="33%">
-
-### 🏢 Enterprise
-
-**Custom pricing**
-
-- Everything in Professional
-- Multi-tenant
-- Audit logging
-- Enterprise connectors
-- 10+ tenants
-- 50+ concurrent tasks
-- 1M+ tokens/month
-- Priority support + SLA
-
-[Contact Sales →](#-support)
-
-</td>
-</tr>
-</table>
+**Contact sales:** sales@enterprise-openclaw.com
 
 ---
 
-## 🚀 Performance
+## 🛠️ Development
 
-- ⚡ **<10ms** - Cached validation
-- ⚡ **<50ms** - Offline cache retrieval
-- ⚡ **<100ms** - First-time validation
-- 📊 **99.9%** - Uptime target
-- 🔍 **Real-time** - Prometheus metrics
+### Prerequisites
+- Node.js >= 20.0.0
+- npm >= 10.0.0
 
----
+### Build from Source
 
-## 🛡️ Security
+```bash
+git clone https://github.com/wjlgatech/enterprise-openclaw-public.git
+cd enterprise-openclaw-public
 
-- 🔐 **RS256 signatures** - Cryptographic license verification
-- 🔒 **SHA256 hashing** - Secure machine binding
-- 🛡️ **Input validation** - Zod schema protection
-- 📝 **Audit logging** - Complete compliance trail
-- 🔑 **Offline mode** - 7-day grace period
+# Install dependencies
+npm install
 
----
+# Build
+npm run build
 
-## 🧪 Battle-Tested
+# Run tests
+npm test
 
+# Start server
+npm start
 ```
-✓ 134 tests passing (100%)
-✓ 74.43% average coverage
-✓ 90%+ coverage on critical paths
-✓ Zero security vulnerabilities
-✓ Production-ready since v1.0.0
+
+### Scripts
+
+```bash
+npm run build      # Build the core package
+npm test           # Run tests
+npm start          # Start the web server
 ```
 
 ---
 
-## 🤝 Support
+## 🤝 Contributing
 
-### 🔓 Community (Open Source)
+We welcome contributions! This is the **open source core** - help us make it better.
 
-- 📧 Email: [support@enterprise-openclaw.com](mailto:support@enterprise-openclaw.com)
-- 💬 GitHub Issues: [Report bugs](https://github.com/wjlgatech/enterprise-openclaw/issues)
-- 📚 Documentation: [Read the docs](./IMPLEMENTATION_SUMMARY.md)
+### How to Contribute
 
-### 🔒 Enterprise Support
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Add tests for new features
+5. Ensure all tests pass (`npm test`)
+6. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+7. Push to the branch (`git push origin feature/amazing-feature`)
+8. Open a Pull Request
 
-- 🎯 **Sales**: [sales@enterprise-openclaw.com](mailto:sales@enterprise-openclaw.com)
-- 🆘 **Priority Support**: Email + Phone + Slack
-- 📞 **SLA**: 4-hour response time (Enterprise tier)
-- 🎓 **Training**: Onboarding + ongoing education
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines.
+
+### Code of Conduct
+
+Please read our [Code of Conduct](./CODE_OF_CONDUCT.md).
 
 ---
 
@@ -269,74 +238,44 @@ enterprise-openclaw/
 
 Built with modern, production-ready technologies:
 
-- **TypeScript** - Type-safe development
-- **npm workspaces** - Multi-package monorepo
-- **Vitest** - Fast, reliable testing
+- **TypeScript 5.7** - Type-safe development
 - **LanceDB** - High-performance vector store
-- **Zod** - Runtime schema validation
-- **JWT + RS256** - Secure license validation
+- **Vitest** - Fast, modern testing
+- **Express** - Web server
+- **Zod** - Runtime validation
 
 ---
 
-## 🌟 Why Enterprise OpenClaw?
+## 📊 Project Status
 
-| Feature | Enterprise OpenClaw | Langchain | LlamaIndex |
+- ✅ **Production Ready** - v1.0.0 released
+- ✅ **Battle Tested** - 134 tests passing
+- ✅ **Well Documented** - Comprehensive guides
+- ✅ **Active Development** - Regular updates
+
+---
+
+## 🌟 Why Choose Enterprise OpenClaw?
+
+| Feature | Enterprise OpenClaw | LangChain | LlamaIndex |
 |---------|---------------------|-----------|------------|
-| Knowledge Graph | ✅ Native | ❌ | ✅ Basic |
-| Self-Improvement | ✅ DRIFT RAG | ❌ | ❌ |
-| Multi-Agent | ✅ Advanced | ✅ Basic | ✅ Basic |
-| License System | ✅ Production | N/A | N/A |
-| Type Safety | ✅ Full | ⚠️ Partial | ⚠️ Partial |
-| Open Core | ✅ | ✅ | ✅ |
+| **Knowledge Graph** | ✅ Native | ❌ | ✅ Basic |
+| **Vector Search** | ✅ LanceDB | ✅ Various | ✅ Various |
+| **Multi-Agent** | ✅ Built-in | ✅ | ⚠️ Limited |
+| **Type Safety** | ✅ Full TypeScript | ⚠️ Partial | ⚠️ Partial |
+| **Web UI** | ✅ Included | ❌ | ❌ |
+| **Open Source** | ✅ Apache 2.0 | ✅ MIT | ✅ MIT |
+| **Enterprise Option** | ✅ Available | ✅ | ❌ |
 
 ---
 
-## 📊 Project Stats
+## 📄 License
 
-<div align="center">
+**Apache License 2.0**
 
-| Metric | Value |
-|--------|-------|
-| **Code** | 9,500+ lines |
-| **Tests** | 134 (100% passing) |
-| **Documentation** | 3,000+ lines |
-| **Packages** | 2 (core + enterprise) |
-| **Release** | v1.0.0 (2026-02-03) |
-| **Status** | ✅ Production Ready |
+Free to use commercially and personally. See [LICENSE](./LICENSE) for details.
 
-</div>
-
----
-
-## 🎓 Learn More
-
-- [Architecture Deep Dive](./IMPLEMENTATION_SUMMARY.md) - How it all works
-- [API Reference](./LICENSE_SYSTEM_GUIDE.md) - Complete API docs
-- [Best Practices](./docs/TEAM_DOCUMENTATION.md) - Pro tips
-- [Deployment Guide](./docs/LICENSE_SERVER_DEPLOYMENT.md) - Go to production
-
----
-
-## 🤝 Contributing
-
-We welcome contributions to the **core package** (Apache 2.0)!
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
-
----
-
-## 📜 License
-
-- **Core Package** (`@enterprise-openclaw/core`) - [Apache 2.0](./LICENSE)
-- **Enterprise Package** (`@enterprise-openclaw/enterprise`) - Proprietary
-
-See [LICENSE_SYSTEM_GUIDE.md](./LICENSE_SYSTEM_GUIDE.md) for details.
+The enterprise features are available under a separate commercial license.
 
 ---
 
@@ -346,14 +285,26 @@ Built with ❤️ by the Enterprise OpenClaw Team
 
 **Powered by Claude Sonnet 4.5**
 
+---
+
+## 🔗 Links
+
+- **GitHub (Open Source):** https://github.com/wjlgatech/enterprise-openclaw-public
+- **Enterprise Version:** https://github.com/wjlgatech/enterprise-openclaw
+- **Documentation:** [Read the docs](./docs/)
+- **Issues:** [Report bugs](https://github.com/wjlgatech/enterprise-openclaw-public/issues)
+- **Discussions:** [Join the community](https://github.com/wjlgatech/enterprise-openclaw-public/discussions)
+
+---
+
 <div align="center">
 
 ### Ready to build intelligent systems?
 
-[Get Started →](#-quick-start) | [View Docs →](./IMPLEMENTATION_SUMMARY.md) | [Get a License →](#-support)
+[Get Started →](#-quick-start) | [View Enterprise →](https://github.com/wjlgatech/enterprise-openclaw) | [Contribute →](#-contributing)
 
 ---
 
-*Enterprise OpenClaw - Where AI meets intelligence* 🦅
+*Enterprise OpenClaw - Open Source Multi-Agent Platform* 🦅
 
 </div>
