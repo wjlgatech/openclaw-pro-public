@@ -6,6 +6,11 @@
 
 **The Solution:** OpenClaw Pro ships with everything you need for production - safety, scalability, team features - ready in 5 minutes.
 
+```bash
+# 1-Click Install (2 minutes)
+curl -fsSL https://raw.githubusercontent.com/wjlgatech/openclaw-pro-public/main/install.sh | bash
+```
+
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Node.js >= 20.0.0](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg)](https://nodejs.org/)
 
@@ -199,13 +204,33 @@ Think **"ChatGPT for your company"** - but it actually works:
 
 ---
 
-## Quick Start (5 minutes)
+## Quick Start
 
-### Prerequisites
+### ⚡ 1-Click Installation (Recommended)
+
+**Just copy and paste this** - installs everything automatically:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/wjlgatech/openclaw-pro-public/main/install.sh | bash
+```
+
+**What it does:**
+- ✅ Checks Node.js >= 20 (tells you if missing)
+- ✅ Clones the repository
+- ✅ Installs all dependencies
+- ✅ Builds packages
+- ✅ Runs tests to verify everything works
+- ✅ Asks if you want to start the server
+
+**Time:** ~2-3 minutes total
+
+---
+
+### 📦 Manual Installation (Alternative)
+
+**Prerequisites:**
 - Node.js >= 20.0.0
 - Anthropic API key ([get free credits](https://console.anthropic.com/))
-
-### Installation
 
 ```bash
 # Clone repository
@@ -215,9 +240,9 @@ cd openclaw-pro-public
 # Install dependencies
 npm install
 
-# Configure
+# Configure environment
 cp .env.example .env
-# Edit .env - add your ANTHROPIC_API_KEY
+# Edit .env and add your ANTHROPIC_API_KEY
 
 # Build and start
 npm run build

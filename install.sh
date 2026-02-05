@@ -50,8 +50,8 @@ echo -e "${GREEN}✓ npm $(npm -v)${NC}"
 if [ ! -f "package.json" ]; then
     echo ""
     echo -e "${YELLOW}Cloning repository...${NC}"
-    git clone https://github.com/wjlgatech/enterprise-openclaw.git
-    cd enterprise-openclaw
+    git clone https://github.com/wjlgatech/openclaw-pro-public.git
+    cd openclaw-pro-public
     echo -e "${GREEN}✓ Repository cloned${NC}"
 fi
 
@@ -94,11 +94,11 @@ if [[ "$response" =~ ^[Yy]$ ]]; then
 else
     echo ""
     echo -e "${BLUE}To start the application later, run:${NC}"
-    echo "     cd enterprise-openclaw"
+    echo "     cd openclaw-pro-public"
     echo "     npm start"
     echo ""
     echo -e "${BLUE}Then open your browser to:${NC}"
-    echo "     http://localhost:3000"
+    echo "     http://localhost:18789"
     echo ""
     echo -e "${GREEN}Happy coding! 🚀${NC}"
     echo ""
