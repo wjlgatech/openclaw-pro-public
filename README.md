@@ -46,7 +46,9 @@ cd openclaw-pro-public
 npm install && npm run build && npm start
 ```
 
-**Then open:** http://localhost:3000
+**Then open:** http://localhost:18789
+
+> **Note:** Default port is 18789. Change with `PORT=3000 npm start` if needed.
 
 ---
 
