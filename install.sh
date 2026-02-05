@@ -73,33 +73,74 @@ echo -e "${YELLOW}Running tests...${NC}"
 npm test -- --reporter=dot --silent 2>&1 | tail -n 5
 echo -e "${GREEN}✓ All tests passed${NC}"
 
-# Success message
+# Success message with ASCII Art
+clear
 echo ""
-echo -e "${GREEN}╔═══════════════════════════════════════════╗${NC}"
-echo -e "${GREEN}║                                           ║${NC}"
-echo -e "${GREEN}║     ✓ Installation Complete!             ║${NC}"
-echo -e "${GREEN}║                                           ║${NC}"
-echo -e "${GREEN}╚═══════════════════════════════════════════╝${NC}"
+echo -e "${BLUE}${BOLD}"
+echo "    ═══════════════════════════════════════════"
+echo "              🦅  OpenClaw Pro  🦅"
+echo "    ═══════════════════════════════════════════"
+echo -e "${NC}"
+echo ""
+echo -e "${GREEN}    ✓ Installation Complete!${NC}"
+echo -e "${GREEN}    ✓ All tests passed${NC}"
+echo -e "${GREEN}    ✓ Ready to launch${NC}"
+echo ""
+echo -e "${BLUE}    Production-Ready AI Knowledge Systems${NC}"
 echo ""
 
-# Ask to start the application
-echo -e "${YELLOW}Would you like to start the application now? (y/n)${NC}"
-read -r response
+# Start automatically
+echo -e "${YELLOW}Starting server automatically in 3 seconds...${NC}"
+sleep 1
+echo -e "${YELLOW}2...${NC}"
+sleep 1
+echo -e "${YELLOW}1...${NC}"
+sleep 1
+echo ""
+echo -e "${BLUE}🚀 Launching OpenClaw Pro...${NC}"
+echo ""
 
-if [[ "$response" =~ ^[Yy]$ ]]; then
-    echo ""
-    echo -e "${BLUE}Starting Enterprise OpenClaw...${NC}"
-    echo ""
-    npm start
-else
-    echo ""
-    echo -e "${BLUE}To start the application later, run:${NC}"
-    echo "     cd openclaw-pro-public"
-    echo "     npm start"
-    echo ""
-    echo -e "${BLUE}Then open your browser to:${NC}"
-    echo "     http://localhost:18789"
-    echo ""
-    echo -e "${GREEN}Happy coding! 🚀${NC}"
-    echo ""
+# Start server in background
+npm start > /tmp/openclaw-server.log 2>&1 &
+SERVER_PID=$!
+
+# Wait for server to be ready
+echo -e "${BLUE}Waiting for server to start...${NC}"
+for i in {1..10}; do
+    if curl -s http://localhost:18789 > /dev/null 2>&1; then
+        break
+    fi
+    sleep 1
+    echo -n "."
+done
+echo ""
+
+# Open browser automatically
+echo -e "${GREEN}Opening browser...${NC}"
+sleep 1
+
+if command -v open &> /dev/null; then
+    # macOS
+    open http://localhost:18789
+elif command -v xdg-open &> /dev/null; then
+    # Linux
+    xdg-open http://localhost:18789
+elif command -v start &> /dev/null; then
+    # Windows
+    start http://localhost:18789
 fi
+
+echo ""
+echo -e "${GREEN}${BOLD}╔═══════════════════════════════════════════╗${NC}"
+echo -e "${GREEN}${BOLD}║                                           ║${NC}"
+echo -e "${GREEN}${BOLD}║      🎉  OpenClaw Pro is LIVE! 🎉       ║${NC}"
+echo -e "${GREEN}${BOLD}║                                           ║${NC}"
+echo -e "${GREEN}${BOLD}╚═══════════════════════════════════════════╝${NC}"
+echo ""
+echo -e "${BLUE}${BOLD}    Dashboard: http://localhost:18789${NC}"
+echo ""
+echo -e "${YELLOW}    Server logs: tail -f /tmp/openclaw-server.log${NC}"
+echo -e "${YELLOW}    Stop server: kill $SERVER_PID${NC}"
+echo ""
+echo -e "${GREEN}Ready to build! 🚀${NC}"
+echo ""

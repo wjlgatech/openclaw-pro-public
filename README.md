@@ -7,7 +7,7 @@
 **The Solution:** OpenClaw Pro ships with everything you need for production - safety, scalability, team features - ready in 5 minutes.
 
 ```bash
-# 1-Click Install (2 minutes)
+# 1-Click Install & Run (fully automatic)
 curl -fsSL https://raw.githubusercontent.com/wjlgatech/openclaw-pro-public/main/install.sh | bash
 ```
 
@@ -206,7 +206,7 @@ Think **"ChatGPT for your company"** - but it actually works:
 
 ## Quick Start
 
-### ⚡ 1-Click Installation (Recommended)
+### ⚡ 1-Click Install & Run (Recommended)
 
 **Just copy and paste this** - installs everything automatically:
 

@@ -1,0 +1,58 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- OpenClaw Pro Icon - Eagle with Knowledge Graph -->
+  <defs>
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4F46E5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#818CF8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Circle -->
+  <circle cx="256" cy="256" r="240" fill="url(#blueGradient)"/>
+
+  <!-- Knowledge Graph Nodes (subtle background) -->
+  <circle cx="180" cy="180" r="8" fill="#818CF8" opacity="0.3"/>
+  <circle cx="332" cy="180" r="8" fill="#818CF8" opacity="0.3"/>
+  <circle cx="256" cy="300" r="8" fill="#818CF8" opacity="0.3"/>
+  <line x1="180" y1="180" x2="332" y2="180" stroke="#818CF8" stroke-width="2" opacity="0.3"/>
+  <line x1="180" y1="180" x2="256" y2="300" stroke="#818CF8" stroke-width="2" opacity="0.3"/>
+  <line x1="332" y1="180" x2="256" y2="300" stroke="#818CF8" stroke-width="2" opacity="0.3"/>
+
+  <!-- Eagle/Claw Symbol -->
+  <g transform="translate(256,256)">
+    <!-- Eagle Head -->
+    <ellipse cx="0" cy="-80" rx="50" ry="60" fill="white"/>
+
+    <!-- Eagle Eye -->
+    <circle cx="-15" cy="-85" r="8" fill="#1E293B"/>
+    <circle cx="-12" cy="-87" r="3" fill="white"/>
+
+    <!-- Eagle Beak -->
+    <path d="M 25,-75 L 50,-85 L 25,-95 Z" fill="#FFA500"/>
+
+    <!-- Eagle Body -->
+    <path d="M -40,-30 Q 0,-40 40,-30 L 30,40 Q 0,60 -30,40 Z" fill="white"/>
+
+    <!-- Wing (suggesting motion/power) -->
+    <path d="M -40,-20 Q -90,-10 -100,30 Q -80,40 -50,20" fill="#E2E8F0" stroke="white" stroke-width="2"/>
+    <path d="M 40,-20 Q 90,-10 100,30 Q 80,40 50,20" fill="#E2E8F0" stroke="white" stroke-width="2"/>
+
+    <!-- Claw (3 talons) -->
+    <g transform="translate(0,60)">
+      <!-- Left talon -->
+      <path d="M -20,0 L -25,25 L -30,30 L -25,35 L -20,30" fill="#FFA500" stroke="#1E293B" stroke-width="1"/>
+      <!-- Center talon -->
+      <path d="M 0,0 L 0,30 L -5,35 L 0,40 L 5,35" fill="#FFA500" stroke="#1E293B" stroke-width="1"/>
+      <!-- Right talon -->
+      <path d="M 20,0 L 25,25 L 30,30 L 25,35 L 20,30" fill="#FFA500" stroke="#1E293B" stroke-width="1"/>
+    </g>
+  </g>
+
+  <!-- Text Arc (Pro) -->
+  <path id="textPath" d="M 100,256 A 156,156 0 0,1 412,256" fill="none"/>
+  <text font-size="32" font-weight="bold" fill="white" font-family="Arial, sans-serif">
+    <textPath href="#textPath" startOffset="50%" text-anchor="middle">
+      PRO
+    </textPath>
+  </text>
+</svg>
