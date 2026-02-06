@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenClaw Pro Setup</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .wizard-container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 600px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .wizard-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .wizard-header h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .progress-bar {
+      background: rgba(255, 255, 255, 0.3);
+      height: 6px;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .progress-fill {
+      background: white;
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      margin-top: 10px;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .wizard-body {
+      padding: 40px;
+    }
+
+    .step-title {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .step-description {
+      color: #666;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .option-card {
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .option-card:hover {
+      border-color: #667eea;
+      background: #f8f9ff;
+    }
+
+    .option-card.selected {
+      border-color: #667eea;
+      background: #f0f2ff;
+    }
+
+    .option-card.recommended::after {
+      content: 'Recommended';
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #667eea;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .option-label {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .option-description {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .input-group {
+      margin-top: 20px;
+    }
+
+    .input-label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .wizard-footer {
+      padding: 20px 40px;
+      background: #f8f9fa;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .btn {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: #667eea;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #5568d3;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-secondary {
+      background: #e0e0e0;
+      color: #666;
+    }
+
+    .btn-secondary:hover {
+      background: #d0d0d0;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .status-message {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .status-message.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .status-message.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .status-message.info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
+
+    .loading {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 8px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="wizard-container">
+    <div class="wizard-header">
+      <h1>🦅 OpenClaw Pro Setup</h1>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+      </div>
+      <div class="progress-text" id="progressText">Step 1 of 6</div>
+    </div>
+
+    <div class="wizard-body" id="wizardBody">
+      <!-- Dynamic content will be inserted here -->
+    </div>
+
+    <div class="wizard-footer">
+      <button class="btn btn-secondary" id="btnBack" style="display: none;">Back</button>
+      <div style="flex: 1"></div>
+      <button class="btn btn-primary" id="btnNext">Next</button>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 0;
+    let selectedOptions = [];
+    let configuration = {};
+
+    const steps = [
+      {
+        id: 'welcome',
+        title: 'Welcome to OpenClaw Pro!',
+        description: 'Let\'s get you set up in a few quick steps. This will only take a minute.',
+        options: [
+          { id: 'continue', label: 'Get Started', description: 'Begin setup process', recommended: true },
+          { id: 'skip', label: 'Use Defaults', description: 'Skip setup and use recommended settings (Ollama + Llama 3.1)' }
+        ]
+      },
+      {
+        id: 'llm-provider',
+        title: 'Choose Your AI Provider',
+        description: 'Select which AI model provider you want to use. You can change this later in Settings.',
+        options: [
+          { id: 'ollama', label: 'Ollama (Local, Free)', description: 'Run AI models locally. No API key needed. Works offline. ✨ Recommended', recommended: true },
+          { id: 'anthropic', label: 'Anthropic Claude', description: 'Cloud-based, requires API key. Best quality but costs per use.' },
+          { id: 'openai', label: 'OpenAI ChatGPT', description: 'Cloud-based, requires API key. Popular and powerful.' }
+        ]
+      },
+      {
+        id: 'ollama-model',
+        title: 'Choose Ollama Model',
+        description: 'Select which local model to use. We\'ll download it for you if needed.',
+        options: [
+          { id: 'llama3.1:8b', label: 'Llama 3.1 (8B)', description: 'Recommended. Fast, capable, runs on most computers. ~4.7GB download.', recommended: true },
+          { id: 'llama3.2:3b', label: 'Llama 3.2 (3B)', description: 'Lighter weight, faster, good for quick tasks. ~2GB download.' },
+          { id: 'qwen2.5:7b', label: 'Qwen 2.5 (7B)', description: 'Excellent for coding tasks. ~4.7GB download.' },
+          { id: 'mistral:7b', label: 'Mistral (7B)', description: 'Good all-around performance. ~4.1GB download.' }
+        ]
+      },
+      {
+        id: 'features',
+        title: 'Enable Enterprise Features',
+        description: 'Choose which security and compliance features to enable.',
+        multiSelect: true,
+        options: [
+          { id: 'pii-detection', label: 'PII Detection', description: 'Automatically detect and mask sensitive information', recommended: true },
+          { id: 'audit-logging', label: 'Audit Logging', description: 'Track all actions for compliance and security', recommended: true },
+          { id: 'multi-tenant', label: 'Multi-Tenant Support', description: 'Enable isolated workspaces for teams' }
+        ]
+      },
+      {
+        id: 'complete',
+        title: 'Setup Complete!',
+        description: 'You\'re all set. OpenClaw Pro is ready to use with Ollama.',
+        options: [
+          { id: 'finish', label: 'Start Using OpenClaw Pro', description: 'Go to the main dashboard', recommended: true }
+        ]
+      }
+    ];
+
+    function renderStep() {
+      const step = steps[currentStep];
+      const body = document.getElementById('wizardBody');
+
+      let html = `
+        <h2 class="step-title">${step.title}</h2>
+        <p class="step-description">${step.description}</p>
+        <div class="options-container" id="optionsContainer">
+      `;
+
+      step.options.forEach(option => {
+        html += `
+          <div class="option-card ${option.recommended ? 'recommended' : ''}" data-option-id="${option.id}">
+            <div class="option-label">${option.label}</div>
+            <div class="option-description">${option.description}</div>
+          </div>
+        `;
+      });
+
+      html += `</div><div id="statusMessage"></div>`;
+      body.innerHTML = html;
+
+      // Add click handlers
+      document.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', () => {
+          if (step.multiSelect) {
+            card.classList.toggle('selected');
+          } else {
+            document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+          }
+        });
+      });
+
+      // Update progress
+      const progress = ((currentStep + 1) / steps.length) * 100;
+      document.getElementById('progressFill').style.width = `${progress}%`;
+      document.getElementById('progressText').textContent = `Step ${currentStep + 1} of ${steps.length}`;
+
+      // Update buttons
+      document.getElementById('btnBack').style.display = currentStep > 0 ? 'block' : 'none';
+      document.getElementById('btnNext').textContent = currentStep === steps.length - 1 ? 'Finish' : 'Next';
+    }
+
+    async function handleNext() {
+      const step = steps[currentStep];
+      const selectedCards = document.querySelectorAll('.option-card.selected');
+
+      if (selectedCards.length === 0 && !step.multiSelect) {
+        showMessage('Please select an option', 'error');
+        return;
+      }
+
+      const selected = Array.from(selectedCards).map(card => card.dataset.optionId);
+
+      // Handle special cases
+      if (step.id === 'llm-provider') {
+        configuration.llmProvider = selected[0];
+      } else if (step.id === 'ollama-model' && configuration.llmProvider === 'ollama') {
+        configuration.ollamaModel = selected[0];
+
+        // Check if we need to download the model
+        showMessage('Checking if Ollama is installed...', 'info');
+        const response = await fetch('/api/setup/check-ollama');
+        const result = await response.json();
+
+        if (!result.installed) {
+          showMessage('Ollama not found. Please install from https://ollama.ai/download', 'error');
+          return;
+        }
+
+        if (!result.hasModel) {
+          showMessage(`Downloading ${configuration.ollamaModel}... This may take a few minutes.`, 'info');
+          await fetch('/api/setup/download-ollama-model', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ model: configuration.ollamaModel })
+          });
+        }
+      } else if (step.id === 'features') {
+        configuration.features = {
+          piiDetection: selected.includes('pii-detection'),
+          auditLogging: selected.includes('audit-logging'),
+          multiTenant: selected.includes('multi-tenant')
+        };
+      }
+
+      // Save configuration and move to next step
+      if (currentStep === steps.length - 1) {
+        // Final step - save and redirect
+        showMessage('Saving configuration...', 'info');
+        await fetch('/api/setup/complete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(configuration)
+        });
+
+        showMessage('Setup complete! Redirecting...', 'success');
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 2000);
+      } else {
+        currentStep++;
+
+        // Skip irrelevant steps
+        if (steps[currentStep].id === 'ollama-model' && configuration.llmProvider !== 'ollama') {
+          currentStep++;
+        }
+
+        renderStep();
+      }
+    }
+
+    function handleBack() {
+      if (currentStep > 0) {
+        currentStep--;
+
+        // Skip irrelevant steps when going back
+        if (steps[currentStep].id === 'ollama-model' && configuration.llmProvider !== 'ollama') {
+          currentStep--;
+        }
+
+        renderStep();
+      }
+    }
+
+    function showMessage(text, type) {
+      const statusDiv = document.getElementById('statusMessage');
+      statusDiv.innerHTML = `<div class="status-message ${type}">${type === 'info' ? '<span class="loading"></span>' : ''}${text}</div>`;
+    }
+
+    document.getElementById('btnNext').addEventListener('click', handleNext);
+    document.getElementById('btnBack').addEventListener('click', handleBack);
+
+    // Initial render
+    renderStep();
+  </script>
+</body>
+</html>
