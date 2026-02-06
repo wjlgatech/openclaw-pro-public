@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Enterprise OpenClaw - One-Click Installation Script
-# Usage: curl -fsSL https://raw.githubusercontent.com/enterprise-openclaw/enterprise-openclaw/main/install.sh | bash
+# OpenClaw Pro (Community Edition) - One-Click Installation Script
+# Usage: curl -fsSL https://raw.githubusercontent.com/wjlgatech/openclaw-pro-public/main/install.sh | bash
 
 set -e
 
@@ -10,14 +10,15 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
+MAGENTA='\033[0;35m'
 NC='\033[0m' # No Color
 
 # Print banner
 echo ""
 echo -e "${BLUE}╔═══════════════════════════════════════════╗${NC}"
 echo -e "${BLUE}║                                           ║${NC}"
-echo -e "${BLUE}║     Enterprise OpenClaw Installer        ║${NC}"
-echo -e "${BLUE}║     v1.0.0 - Production Ready             ║${NC}"
+echo -e "${BLUE}║        OpenClaw Pro Installer            ║${NC}"
+echo -e "${BLUE}║     Community Edition - v1.0.0            ║${NC}"
 echo -e "${BLUE}║                                           ║${NC}"
 echo -e "${BLUE}╚═══════════════════════════════════════════╝${NC}"
 echo ""
@@ -73,52 +74,60 @@ echo -e "${YELLOW}Running tests...${NC}"
 npm test -- --reporter=dot --silent 2>&1 | tail -n 5
 echo -e "${GREEN}✓ All tests passed${NC}"
 
-# Success message with ASCII Art
-clear
+# Create .env if not exists
+if [ ! -f ".env" ]; then
+    echo ""
+    echo -e "${YELLOW}Creating .env configuration...${NC}"
+    cp .env.example .env
+    echo -e "${GREEN}✓ Configuration created${NC}"
+    echo -e "${MAGENTA}⚠ Please add your ANTHROPIC_API_KEY to .env${NC}"
+fi
+
+# Success message
 echo ""
-echo -e "${BLUE}${BOLD}"
-echo "    ═══════════════════════════════════════════"
-echo "              🦅  OpenClaw Pro  🦅"
-echo "    ═══════════════════════════════════════════"
-echo -e "${NC}"
-echo ""
-echo -e "${GREEN}    ✓ Installation Complete!${NC}"
-echo -e "${GREEN}    ✓ All tests passed${NC}"
-echo -e "${GREEN}    ✓ Ready to launch${NC}"
-echo ""
-echo -e "${BLUE}    Production-Ready AI Knowledge Systems${NC}"
+echo -e "${GREEN}╔═══════════════════════════════════════════╗${NC}"
+echo -e "${GREEN}║                                           ║${NC}"
+echo -e "${GREEN}║     ✓ Installation Complete!             ║${NC}"
+echo -e "${GREEN}║                                           ║${NC}"
+echo -e "${GREEN}╚═══════════════════════════════════════════╝${NC}"
 echo ""
 
-# Start automatically
-echo -e "${YELLOW}Starting server automatically in 3 seconds...${NC}"
-sleep 1
-echo -e "${YELLOW}2...${NC}"
-sleep 1
-echo -e "${YELLOW}1...${NC}"
-sleep 1
-echo ""
-echo -e "${BLUE}🚀 Launching OpenClaw Pro...${NC}"
+# Start the application automatically
+echo -e "${BLUE}Starting OpenClaw Pro servers...${NC}"
 echo ""
 
-# Start server in background
-npm start > /tmp/openclaw-server.log 2>&1 &
+# Start both servers in background
+npm run dev > /tmp/openclaw-pro.log 2>&1 &
 SERVER_PID=$!
 
-# Wait for server to be ready
-echo -e "${BLUE}Waiting for server to start...${NC}"
-for i in {1..10}; do
+echo -e "${GREEN}✓ Servers starting (PID: $SERVER_PID)${NC}"
+echo -e "${BLUE}  - OpenClaw Gateway: http://localhost:18789${NC}"
+echo -e "${BLUE}  - Enterprise API: http://localhost:19000${NC}"
+echo ""
+
+# Wait for servers to be ready
+echo -e "${YELLOW}Waiting for servers to be ready...${NC}"
+for i in {1..20}; do
     if curl -s http://localhost:18789 > /dev/null 2>&1; then
+        echo -e "${GREEN}✓ Servers ready!${NC}"
         break
     fi
+    if [ $i -eq 20 ]; then
+        echo -e "${YELLOW}⚠ Servers taking longer than expected. Check logs: tail -f /tmp/openclaw-pro.log${NC}"
+    fi
     sleep 1
-    echo -n "."
 done
+
+echo ""
+echo -e "${GREEN}╔═══════════════════════════════════════════╗${NC}"
+echo -e "${GREEN}║                                           ║${NC}"
+echo -e "${GREEN}║     OpenClaw Pro is Running! 🚀          ║${NC}"
+echo -e "${GREEN}║                                           ║${NC}"
+echo -e "${GREEN}╚═══════════════════════════════════════════╝${NC}"
 echo ""
 
 # Open browser automatically
-echo -e "${GREEN}Opening browser...${NC}"
-sleep 1
-
+echo -e "${BLUE}Opening browser...${NC}"
 if command -v open &> /dev/null; then
     # macOS
     open http://localhost:18789
@@ -126,21 +135,18 @@ elif command -v xdg-open &> /dev/null; then
     # Linux
     xdg-open http://localhost:18789
 elif command -v start &> /dev/null; then
-    # Windows
+    # Windows (Git Bash)
     start http://localhost:18789
+else
+    echo -e "${YELLOW}Please open your browser to: http://localhost:18789${NC}"
 fi
 
 echo ""
-echo -e "${GREEN}${BOLD}╔═══════════════════════════════════════════╗${NC}"
-echo -e "${GREEN}${BOLD}║                                           ║${NC}"
-echo -e "${GREEN}${BOLD}║      🎉  OpenClaw Pro is LIVE! 🎉       ║${NC}"
-echo -e "${GREEN}${BOLD}║                                           ║${NC}"
-echo -e "${GREEN}${BOLD}╚═══════════════════════════════════════════╝${NC}"
+echo -e "${BLUE}To stop the servers:${NC}"
+echo "     kill $SERVER_PID"
 echo ""
-echo -e "${BLUE}${BOLD}    Dashboard: http://localhost:18789${NC}"
+echo -e "${BLUE}To view logs:${NC}"
+echo "     tail -f /tmp/openclaw-pro.log"
 echo ""
-echo -e "${YELLOW}    Server logs: tail -f /tmp/openclaw-server.log${NC}"
-echo -e "${YELLOW}    Stop server: kill $SERVER_PID${NC}"
-echo ""
-echo -e "${GREEN}Ready to build! 🚀${NC}"
+echo -e "${GREEN}Enterprise features enabled! 🎉${NC}"
 echo ""

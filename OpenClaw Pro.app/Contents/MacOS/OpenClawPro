@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# OpenClaw Pro - macOS Application Launcher
+
+# Get the app bundle directory
+BUNDLE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../../.." && pwd )"
+PROJECT_DIR="$(dirname "$BUNDLE_DIR")"
+
+# Run the startup script
+"$PROJECT_DIR/scripts/start-app.sh"
