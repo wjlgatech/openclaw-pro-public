@@ -30,6 +30,9 @@ tmp/
 temp/
 *.tmp
 
+# Runtime data
+data/
+
 # Archives (keep in repo but ignore changes)
 archive/
 

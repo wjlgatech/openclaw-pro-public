@@ -63,8 +63,8 @@ async function initializeSystem() {
     isInitialized = true;
     logger.info('✅ System initialization complete!');
 
-  } catch (error) {
-    logger.error({ error }, '❌ Failed to initialize system');
+  } catch (error: any) {
+    logger.error({ err: error, message: error?.message, stack: error?.stack }, '❌ Failed to initialize system');
     throw error;
   }
 }
