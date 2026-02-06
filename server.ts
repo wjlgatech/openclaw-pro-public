@@ -17,7 +17,7 @@ const __dirname = dirname(__filename);
 
 const app = express();
 const logger = pino({ level: 'info' });
-const port = process.env.PORT || 18789;
+const port = process.env.ENTERPRISE_PORT || 19000;
 
 // Middleware
 app.use(express.json());
